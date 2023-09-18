@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grafica de Tendencia</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <!-- Formulario de inicio de sesión -->
+    <div id="login-container">
+        <h2>Iniciar sesión</h2>
+        <input type="text" id="username" placeholder="Nombre de usuario" required><br><br>
+        <input type="password" id="password" placeholder="Contraseña" required><br><br>
+        <button onclick="verificarCredenciales()">Iniciar sesión</button>
+    </div>
+
+    <!-- Contenedor principal del contenido -->
+    <div id="container">
+        <div id="input-container">
+            <input type="number" id="dato" placeholder="Ingresa la semilla aquí">
+            <button onclick="agregarDato()">Ingresar</button>
+            <button onclick="eliminarUltimoDato()">Eliminar Último</button>
+            <div id="reloj"></div>
+        </div>
+        <div id="valores-container">
+            <div id="valores"></div> <!-- Aquí se mostrarán los valores -->
+        </div>
+        <div id="grafico-container">
+            <!-- Contenedor para el gráfico -->
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+    <script src="reloj.js"></script>
+    <script src="login.js"></script> <!-- Asegúrate de que este archivo apunte a tu lógica de inicio de sesión -->
+</body>
+</html>
