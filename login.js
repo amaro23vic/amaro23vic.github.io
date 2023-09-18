@@ -3,7 +3,7 @@ function verificarCredenciales() {
     const password = document.getElementById('password').value;
 
     // Verifica las credenciales hardcodeadas (esto es solo para pruebas)
-    if (username === 'Victor' && password === 'amaro23vic') {
+    if (username === 'VictorAmaro' && password === 'amaro23vic') {
         // Credenciales válidas, muestra el contenido principal
         document.getElementById('login-container').style.display = 'none';
         document.getElementById('container').style.display = 'block';
