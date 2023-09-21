@@ -5,37 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grafica de Tendencia</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-    <!-- Formulario de inicio de sesión -->
-    <div id="login-container">
-        <h2>Iniciar sesión</h2>
-        <input type="text" id="username" placeholder="Nombre de usuario" required><br><br>
-        <input type="password" id="password" placeholder="Contraseña" required><br><br>
-        <button onclick="verificarCredenciales()">Iniciar sesión</button>
-    </div>
-
+    
+<!-- Formulario de inicio de sesión -->
+<div id="login-container">
+    <h2>Iniciar sesión</h2>
+    <input type="text" id="username" placeholder="Nombre de usuario" required><br><br>
+    <input type="password" id="password" placeholder="Contraseña" required><br><br>
+    <button onclick="verificarCredenciales()">Iniciar sesión</button>
+</div>
     <!-- Contenedor principal del contenido -->
-    <div id="container">
-        <div id="input-container">
-            <input type="number" id="dato" placeholder="Ingresa la semilla aquí">
-            <button onclick="agregarDato()">Ingresar</button>
-            <button onclick="eliminarUltimoDato()">Eliminar Último</button>
-            <div id="reloj"></div>
-        </div>
-        <div id="valores-container">
-            <div id="valores"></div> <!-- Aquí se mostrarán los valores -->
-        </div>
-        <div id="grafico-container">
-            <!-- Contenedor para el gráfico -->
-            <canvas id="myChart"></canvas>
-        </div>
+<div id="container">
+    <div id="input-container">
+        <input type="number" id="dato" placeholder="Ingresa la semilla aquí">
+        <button onclick="agregarDato()">Ingresar</button>
+        <button onclick="eliminarUltimoDato()">Eliminar Último</button>
+        <div id="reloj"></div>
+        <!-- Contenedor para el tiempo -->
+<div id="tiempo-container">
+    <div id="ingresaElTiempo">&nbsp;&nbsp;&nbsp;Ingresa el Tiempo de un CF mayor a 6x aqui:&nbsp;&nbsp;</div>
+    <input type="time" step="1" id="tiempo" placeholder="Ingresa el tiempo aquí">
+    <div id="textoElTiempoEs">&nbsp;&nbsp;&nbsp;El tiempo probable es:&nbsp;&nbsp;</div>
+    <div id="tiempoMasCuatro"></div>
+</div>
     </div>
+    <div id="valores-container">
+        <div id="valores"></div> <!-- Aquí se mostrarán los valores -->
+    </div>
+    <div id="grafico-container">
+        <!-- Contenedor para el gráfico -->
+        <canvas id="myChart"></canvas>
+    </div>
+</div>
+
+<button id="eliminarDatosButton">Limpiar registros</button>
+<button id="botonEliminarDatoAnterior">Eliminar Dato Anterior</button>
+
 
     <!-- Scripts -->
-    <script src="script.js"></script>
+
     <script src="reloj.js"></script>
     <script src="login.js"></script> <!-- Asegúrate de que este archivo apunte a tu lógica de inicio de sesión -->
+    <script src="algoritmoTiempo/tiempoUno.js"></script>
+    <script src="funcionEliminar.js"></script>
+    <script src="funcionEliminarAnterior.js"></script>
+    <script src="script.js"></script>
+
 </body>
 </html>
+
