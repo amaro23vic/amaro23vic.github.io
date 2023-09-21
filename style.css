@@ -103,6 +103,37 @@ body {
     font-weight: bold;
 }
 
+#tiempo-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  #ingresaElTiempo {
+    font-weight: bold;
+    color: rgb(0, 238, 255);
+    text-shadow: 2px 2px 2px #580054; /* Sombreado de color negro */
+
+  }
+  
+  #textoElTiempoEs {
+    font-weight: bold;
+    color: rgb(0, 238, 255);
+    text-shadow: 2px 2px 2px #580054; /* Sombreado de color negro */
+
+  }
+  
+  #tiempoMasCuatro {
+    font-size: 20px;
+    margin-top: 5px; /* Espacio entre "El tiempo es:" y el resultado */
+    color: rgb(255, 0, 140); /* Estilo para el resultado */
+    font-weight: bold;
+    margin-bottom: 4px;
+    text-shadow: 2px 2px 2px #4b5000; /* Sombreado de color negro */
+
+  }
+  
+
+
 /* Media query para ajustar el diseño en pantallas más pequeñas */
 @media screen and (max-width: 1000px) {
     body {
@@ -114,7 +145,7 @@ body {
     }
 
     #input-container {
-        flex-direction: column; /* Cambia la dirección del flexbox a columna */
+        flex-direction:column; /* Cambia la dirección del flexbox a columna */
     }
 
     #valores-container, #grafico-container {
@@ -123,4 +154,18 @@ body {
     }
 
     /* Ajusta los estilos para los valores y el reloj según sea necesario */
+
+    #tiempo-container {
+        flex-direction: column;
+    }
+
+    #ingresaElTiempo {
+        margin-bottom: 10px;
+    }
+
+    #textoElTiempoEs {
+        margin-top: 10px;
+        margin-bottom: 5px;
+    }
+
 }
