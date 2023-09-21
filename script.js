@@ -14,23 +14,32 @@ var myChart = new Chart(ctx, {
             {
                 label: 'Tend 1',
                 data: datos1,
-                backgroundColor: '#003AFF',
-                borderColor: '#003AFF',
-                borderWidth: 3
+                backgroundColor: '#00FFF6',
+                borderColor: '#00FFF6',
+                borderWidth: 2,
+                pointBackgroundColor: [], // Color de los puntos dinámicos
+                pointRadius: 5, // Tamaño de los puntos dinámicos
+                borderDash: [3, 3] //estilo de linea (punteada)
             },
             {
                 label: 'Tend 2',
                 data: datos2,
-                backgroundColor: 'red',
-                borderColor: 'red',
-                borderWidth: 3
+                backgroundColor: '#09AF00',
+                borderColor: '#09AF00',
+                borderWidth: 2,
+                pointBackgroundColor: [], // Color de los puntos dinámicos
+                pointRadius: 5, // Tamaño de los puntos dinámicos
+                borderDash: [10, 10] //estilo de linea (guiones)
             },
             {
                 label: 'Tend 3',
                 data: datos3,
-                backgroundColor: 'green',
-                borderColor: 'green',
-                borderWidth: 3
+                backgroundColor: '#FFE924',
+                borderColor: '#FFE924',
+                borderWidth: 2,
+                pointBackgroundColor: [], // Color de los puntos dinámicos
+                pointRadius: 5, // Tamaño de los puntos dinámicos
+                borderDash: [0, 0, 0] //estilo de linea (Línea con un patrón personalizado (alternancia de 5, 10 y 15 píxeles))
             }
         ]
     },
@@ -82,16 +91,46 @@ function agregarDato() {
                 tendencia1 += datos1[datos1.length - 1];
             }
             datos1.push(tendencia1);
+            if (dato >= 10) {
+                // Si el dato es mayor o igual a 10, agregar el punto en la misma tendencia de color rosa
+                myChart.data.datasets[0].pointBackgroundColor.push('#DA00D6');
+            } else if (dato >= 6 && dato <= 9.99) {
+                // Si el dato es mayor o igual a 6 pero menor o igual a 9.99, agregar el punto en blanco
+                myChart.data.datasets[0].pointBackgroundColor.push('white');
+            } else {
+                // Si el dato no es mayor o igual a 6, agregar el punto con el color normal de la tendencia
+                myChart.data.datasets[0].pointBackgroundColor.push('#00FFF6');
+            }
         } else if (contador % 3 === 1) {
             if (datos2.length > 0) {
                 tendencia2 += datos2[datos2.length - 1];
             }
             datos2.push(tendencia2);
+            if (dato >= 10) {
+                // Si el dato es mayor o igual a 10, agregar el punto en la misma tendencia de color rosa
+                myChart.data.datasets[1].pointBackgroundColor.push('#DA00D6');
+            } else if (dato >= 6 && dato <= 9.99) {
+                // Si el dato es mayor o igual a 6 pero menor o igual a 9.99, agregar el punto en blanco
+                myChart.data.datasets[1].pointBackgroundColor.push('white');
+            } else {
+                // Si el dato no es mayor o igual a 6, agregar el punto con el color normal de la tendencia
+                myChart.data.datasets[1].pointBackgroundColor.push('#09AF00');
+            }
         } else {
             if (datos3.length > 0) {
                 tendencia3 += datos3[datos3.length - 1];
             }
             datos3.push(tendencia3);
+            if (dato >= 10) {
+                // Si el dato es mayor o igual a 10, agregar el punto en la misma tendencia de color rosa
+                myChart.data.datasets[2].pointBackgroundColor.push('#DA00D6');
+            } else if (dato >= 6 && dato <= 9.99) {
+                // Si el dato es mayor o igual a 6 pero menor o igual a 9.99, agregar el punto en blanco
+                myChart.data.datasets[2].pointBackgroundColor.push('white');
+            } else {
+                // Si el dato no es mayor o igual a 6, agregar el punto con el color normal de la tendencia
+                myChart.data.datasets[2].pointBackgroundColor.push('#FFE924');
+            }
         }
 
         myChart.update();
@@ -104,8 +143,11 @@ function agregarDato() {
         }
 
         actualizarListaValores();
+        guardarDatoEnBaseDeDatos(dato);
 
         contador++;
+
+        
     }
 }
 
@@ -117,10 +159,16 @@ function eliminarUltimoDato() {
         // Actualiza los arreglos de datos
         if (contador % 3 === 0) {
             datos1.pop();
+            // Elimina el color del punto correspondiente al dato eliminado
+            myChart.data.datasets[0].pointBackgroundColor.pop();
         } else if (contador % 3 === 1) {
             datos2.pop();
+            // Elimina el color del punto correspondiente al dato eliminado
+            myChart.data.datasets[1].pointBackgroundColor.pop();
         } else {
             datos3.pop();
+            // Elimina el color del punto correspondiente al dato eliminado
+            myChart.data.datasets[2].pointBackgroundColor.pop();
         }
 
         myChart.update();
@@ -143,8 +191,10 @@ function actualizarListaValores() {
 
         if (historial[i] <= 1.99) {
             span.style.backgroundColor = '#0079C7';
-        } else if (historial[i] >= 2 && historial[i] <= 9.99) {
+        } else if (historial[i] >= 2 && historial[i] <= 5.99) {
             span.style.backgroundColor = 'purple';
+        } else if (historial[i] >= 6 && historial[i] <= 9.99) {
+            span.style.backgroundColor = 'purple'; // Color blanco para coeficientes entre 6 y 9.99
         } else if (historial[i] >= 10) {
             span.style.backgroundColor = '#CA00C7';
         }
@@ -152,6 +202,25 @@ function actualizarListaValores() {
         divValores.appendChild(span);
     }
 }
+
+
+
+
+function guardarDatoEnBaseDeDatos(dato) {
+    // Enviar el dato a la base de datos a través de AJAX
+    $.ajax({
+        type: "POST",
+        url: "CRUD/insertar.php", // Ruta al archivo PHP
+        data: { dato: dato }, // Enviar el dato al archivo PHP
+        success: function(response) {
+            console.log(response); // Verifica la respuesta del servidor en la consola
+        },
+        error: function(error) {
+            console.error("Error al enviar el dato:", error);
+        }
+    });
+}
+
 
 document.getElementById('dato').addEventListener('keypress', function(event) {
     if (event.keyCode === 13) {
